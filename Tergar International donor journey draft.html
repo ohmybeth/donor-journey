@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tergar International donor journey draft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    --bg:#fff; --soft:#F9F9FB; --card:#fff;
+    --text:#424A58; --text-2:#67748A; --line:#C1C7D1;
+    --blue:#1B4087; --gold:#E39F24; --slate:#67748A;
+    --river:rgba(227,159,36,.45); --edge:rgba(27,64,135,.55);
+    --watch:#794c02; --watch-bg:rgba(251,179,21,.18);
+    --serif:"Source Serif Pro","Source Serif 4",Georgia,serif;
+    --sans:"Nunito Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --band-op:1;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14171c; --soft:#0e1014; --card:#1c2027;
+      --text:rgba(255,255,255,.92); --text-2:rgba(255,255,255,.6); --line:rgba(255,255,255,.16);
+      --blue:#8FB6F3; --slate:#9AA6BB; --river:rgba(227,159,36,.5); --edge:rgba(143,182,243,.6);
+      --watch:#e49c06; --watch-bg:rgba(251,179,21,.16); --band-op:.18; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14171c; --soft:#0e1014; --card:#1c2027;
+    --text:rgba(255,255,255,.92); --text-2:rgba(255,255,255,.6); --line:rgba(255,255,255,.16);
+    --blue:#8FB6F3; --slate:#9AA6BB; --river:rgba(227,159,36,.5); --edge:rgba(143,182,243,.6);
+    --watch:#e49c06; --watch-bg:rgba(251,179,21,.16); --band-op:.18; color-scheme:dark;
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  *,*::before,*::after{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 var(--sans);}
+  .page{max-width:960px;margin:0 auto;padding:0 24px 56px;}
+  h1,h2{font-family:var(--serif);font-weight:600;margin:0;text-wrap:balance;color:var(--blue);}
+  h1{font-size:32px;line-height:1.2;margin-top:20px;}
+  h2{font-size:22px;line-height:1.3;}
+  .meta{font-size:13px;color:var(--text-2);border-bottom:1px solid var(--line);padding:14px 0;margin:0;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;}
+  .ask{margin-top:20px;border-left:4px solid var(--gold);font-weight:600;}
+  .keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px;}
+  .keys .card{padding:12px 16px;}
+  .keys b,.step b{font-weight:700;color:var(--blue);}
+  .pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:600;line-height:1.5;}
+  .pill.watch{color:var(--watch);background:var(--watch-bg);}
+  .pill.plain{color:var(--text-2);border:1px solid var(--line);}
+  .icon{width:16px;height:16px;flex:none;}
+
+  .river-sec{margin-top:28px;}
+  .step{display:grid;grid-template-columns:minmax(0,1fr) 140px minmax(0,1fr);align-items:stretch;}
+  .step .card{margin:7px 0;}
+  .step.left .card{grid-column:1;grid-row:1;margin-right:14px;}
+  .step.right .card{grid-column:3;grid-row:1;margin-left:14px;}
+  .step .flow{grid-column:2;grid-row:1;position:relative;display:flex;justify-content:center;align-items:center;min-height:64px;}
+  .edge{position:absolute;inset:0;filter:drop-shadow(.75px 0 0 var(--edge)) drop-shadow(-.75px 0 0 var(--edge));}
+  .river{position:absolute;inset:0;background:var(--river);
+    clip-path:polygon(calc(50% - var(--a) / 2) 0,calc(50% + var(--a) / 2) 0,calc(50% + var(--b) / 2) 100%,calc(50% - var(--b) / 2) 100%);}
+  .node{position:relative;z-index:1;width:32px;height:32px;border-radius:50%;background:var(--bg);border:2px solid var(--blue);
+    color:var(--blue);font-weight:700;font-size:16px;line-height:28px;text-align:center;}
+  .src .flow{align-items:flex-start;}
+  .src .mount{position:relative;z-index:1;margin-top:4px;width:36px;height:30px;}
+  .row-t{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;}
+  .end .flow{min-height:36px;}
+
+  .orgs-sec{margin-top:28px;}
+  .orgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:16px;}
+  .orgs .card{padding:16px;}
+  .cat{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text-2);margin:0 0 10px;display:flex;align-items:center;gap:8px;}
+  .dot{width:10px;height:10px;border-radius:50%;flex:none;}
+  .orgs ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  .orgs li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;}
+  .tag{font-size:13px;color:var(--text-2);}
+  .yf{margin-top:16px;border-left:4px solid var(--blue);padding:16px;}
+  .yf p{margin:6px 0 0;}
+
+  .band{position:relative;overflow:hidden;margin-top:28px;border-radius:14px;border:1px solid var(--line);background:var(--card);padding:28px 24px;}
+  .band::before{content:"";position:absolute;inset:0;opacity:var(--band-op);
+    background:linear-gradient(45deg,#F2D4A8 0%,#FBE0C9 20%,#C0D6F6 60%,#8FB6F3 100%);}
+  .band>*{position:relative;}
+  .band p{margin:10px 0 0;display:flex;align-items:center;gap:8px;}
+
+  @media (max-width:719px){
+    .page{padding:0 16px 40px;}
+    h1{font-size:32px;}
+    .step{grid-template-columns:72px minmax(0,1fr);}
+    .step .flow{grid-column:1;}
+    .step.left .card,.step.right .card{grid-column:2;margin:7px 0 7px 10px;}
+    .step.end .flow{grid-column:1;}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="loop" viewBox="0 0 20 20"><path d="M16 10a6 6 0 1 1-2-4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M15.5 2.5v3.5H12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="page">
+  <p class="meta">Tergar International · Journey map draft · Nov 3, 2026 · Beth Korczynski to colleagues · Check steps</p>
+
+  <h1>A donor who starts with Tergar International may grow to support all of Rinpoche’s work</h1>
+
+  <div class="ask card">Reply to Beth with any step that doesn’t match what donors tell you.</div>
+
+  <div class="keys">
+    <div class="card"><b>Width:</b> a wider river means more engagement and belonging, not bigger gifts.</div>
+    <div class="card"><b>Start:</b> Tergar International is where this path begins, not a main organization.</div>
+    <div class="card"><b>To test:</b> steps 5 and 9 are hypotheses, not findings.</div>
+  </div>
+
+  <section class="river-sec" aria-label="The donor path, step by step">
+    <div class="step src right">
+      <div class="card"><b>Yongey Mingyur Rinpoche</b> is the watershed. Every path below flows from his enlightened activity.</div>
+      <div class="flow"><div class="edge"><i class="river" style="--a:0%;--b:5%"></i></div>
+        <svg class="mount" viewBox="0 0 36 30" aria-hidden="true"><polygon points="18,2 3,28 33,28" fill="var(--blue)"/><polygon points="18,10 12,21 24,21" fill="#8FB6F3" opacity=".7"/></svg></div>
+    </div>
+
+    <div class="step left">
+      <div class="card"><b>Looks for</b> relief or well-being</div>
+      <div class="flow"><div class="edge"><i class="river" style="--a:5%;--b:11%"></i></div><span class="node">1</span></div>
+    </div>
+
+    <div class="step right">
+      <div class="card"><b>Discovers</b> Tergar International (Connect)</div>
+      <div class="flow"><div class="edge"><i class="river" style="--a:11%;--b:18%"></i></div><span class="node">2</span></div>
+    </div>
+
+    <div class="step left">
+      <div class="card"><div class="row-t"><span><b>Enters</b> the Flywheel (Start, Deepen)</span><span class="pill plain"><svg class="icon"><use href="#loop"/></svg>Often repeats</span></div></div>
+      <div class="flow"><div class="edge"><i class="river" style="--a:18%;--b:26%"></i></div><span class="node">3</span></div>
+    </div>
+
+    <div class="step right">
+      <div class="card"><b>Gives</b> a first gift</div>
+      <div class="flow"><div class="edge"><i class="river" style="--a:26%;--b:35%"></i></div><span class="node">4</span></div>
+    </div>
+
+    <div class="step left">
+      <div class="card"><div class="row-t"><span><b>Bodhicitta grows:</b> gives to help others</span><span class="pill watch">To test</span></div></div>
+      <div class="flow"><div class="edge"><i class="river" style="--a:35%;--b:45%"></i></div><span class="node">5</span></div>
+    </div>
+
+    <div class="step right">
+      <div class="card"><b>Sees self</b> as a Tergar community member</div>
+      <div class="flow"><div class="edge"><i class="river" style="--a:45%;--b:56%"></i></div><span class="node">6</span></div>
+    </div>
+
+    <div class="step left">
+      <div class="card"><div class="row-t"><span><b>Gives</b> regularly or more often</span><span class="pill plain"><svg class="icon"><use href="#loop"/></svg>Often repeats</span></div></div>
+      <div class="flow"><div class="edge"><i class="river" style="--a:56%;--b:68%"></i></div><span class="node">7</span></div>
+    </div>
+
+    <div class="step right">
+      <div class="card"><b>Feels close</b> to Mingyur Rinpoche and the mandala</div>
+      <div class="flow"><div class="edge"><i class="river" style="--a:68%;--b:81%"></i></div><span class="node">8</span></div>
+    </div>
+
+    <div class="step left">
+      <div class="card"><div class="row-t"><span><b>Considers</b> other mandala organizations</span><span class="pill watch">To test</span></div></div>
+      <div class="flow"><div class="edge"><i class="river" style="--a:81%;--b:94%"></i></div><span class="node">9</span></div>
+    </div>
+
+    <div class="step end">
+      <div class="flow"><div class="edge"><i class="river" style="--a:94%;--b:100%"></i></div></div>
+    </div>
+  </section>
+
+  <section class="orgs-sec">
+    <h2>At step 9, a donor can support any of these organizations</h2>
+    <div class="orgs">
+      <div class="card">
+        <p class="cat"><span class="dot" style="background:var(--blue)"></span>Dharma &amp; Study</p>
+        <ul>
+          <li>Tergar Osel Ling Monastery and Monastic College</li>
+          <li>Tergar Bodh Gaya Monastery</li>
+          <li>Tergar Institute</li>
+          <li>Tergar Retreats</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="cat"><span class="dot" style="background:var(--gold)"></span>Meditation &amp; Practice Communities</p>
+        <ul>
+          <li>Tergar International <span class="pill plain">Path starts here</span> <span class="pill watch">Local chapters to define</span></li>
+          <li>Tergar Asia <span class="pill watch">Local chapters to define</span></li>
+          <li>Yongey Buddhist Center</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="cat"><span class="dot" style="background:var(--slate)"></span>Social &amp; Environmental</p>
+        <ul>
+          <li>H.E.L.P. <span class="tag">environment</span></li>
+          <li>Tergar Charity Nepal <span class="tag">women</span></li>
+          <li>Tergar Schools <span class="tag">children</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card yf">
+      <h2>Yongey Foundation</h2>
+      <p>A donor can give without restriction, or restrict the gift to one organization above, sometimes for tax reasons.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <h2>Every organization leads to human flourishing</h2>
+    <p><svg class="icon" style="color:var(--blue)"><use href="#loop"/></svg>Impact further along draws new people to step 1.</p>
+  </section>
+</div>
+</body>
+</html>
